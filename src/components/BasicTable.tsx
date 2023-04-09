@@ -1,25 +1,25 @@
 import React, { useMemo } from 'react'
 import { useTable } from 'react-table'
 import MOCK_DATA from './MOCK_DATA.json'
-import { COLUMNS } from './columns'
+import { GROUPED_COLUMNS } from './columns'
+// import { COLUMNS } from './columns'
 
 const BasicTable = () => {
-  const columns = useMemo(() => COLUMNS, [])
+  const columns = useMemo(() => GROUPED_COLUMNS, [])
   const data = useMemo(() => MOCK_DATA, [])
 
   // RECOMMENDS YOU TO MEMOIZE THE DATA AND COLUMNS TO PREVENNT UNNECESSARY RERENDERING
-  const tableInstance = useTable({
-    columns,
-    data
-  })
-
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = tableInstance
+    footerGroups,
+  } = useTable({
+    columns,
+    data
+  })
 
   return (
     <div>
@@ -30,7 +30,7 @@ const BasicTable = () => {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {
                   headerGroup.headers.map((column) => (
-                    <td {...column.getHeaderProps()}>{column.render('Header')}</td>
+                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                   ))
                 }
               </tr>
@@ -53,6 +53,21 @@ const BasicTable = () => {
             })
           }
         </tbody>
+        <tfoot>
+          {
+            footerGroups.map((footerGroup) => (
+              <tr {...footerGroup.getFooterGroupProps()}>
+                {
+                  footerGroup.headers.map((column) => (
+                    <td {...column.getFooterProps()}>
+                      {column.render('Footer')}
+                    </td>
+                  ))
+                }
+              </tr>
+            ))
+          }
+        </tfoot>
       </table>
     </div>
   )
