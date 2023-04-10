@@ -7,6 +7,7 @@ import SortingTable from './components/SortingTable'
 import FilteringTable from './components/FilteringTable'
 import 'regenerator-runtime/runtime';
 import PaginationTable from './components/PaginationTable'
+import RowSelectionTable from './components/RowSelecton'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,7 +17,8 @@ function App() {
       {/* <BasicTable /> */}
       {/* <SortingTable /> */}
       {/* <FilteringTable /> */}
-      <PaginationTable />
+      {/* <PaginationTable /> */}
+      <RowSelectionTable />
     </div>
   )
 }
